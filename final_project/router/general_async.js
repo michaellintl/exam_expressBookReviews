@@ -19,14 +19,12 @@ router.get('/books', async (req, res) => {
 // Task 11
 router.get('/books/:isbn', async (req, res) => {
   const isbn = req.params.isbn;
-  try {
-    const response = await axios.get(`${API_BASE_URL}/books/${isbn}`);
-    res.json(response.data);
-  } catch (error) {
-    console.error(`Error fetching book with ISBN ${isbn}:`, error);
-    res.status(500).send('Server Error');
-  }
+
+  const axios_req = axios.get(`${API_BASE_URL}/books/${isbn}`);
+  axios_req.then(res => { return res.json(res.data); })
+           .catch(err => { return res.status(500).send("Server Error:" + err.message); });
 });
+
 
 // Task 12
 router.get('/books/author/:author', async (req, res) => {

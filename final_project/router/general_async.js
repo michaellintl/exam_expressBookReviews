@@ -21,8 +21,8 @@ router.get('/books/:isbn', async (req, res) => {
   const isbn = req.params.isbn;
 
   const axios_req = axios.get(`${API_BASE_URL}/books/${isbn}`);
-  axios_req.then(res => { return res.json(res.data); })
-           .catch(err => { return res.status(500).send("Server Error:" + err.message); });
+  axios_req.then(response => { return res.json(response.data); })
+           .catch(error => { return res.status(500).send("Server Error:" + error.message); });
 });
 
 
